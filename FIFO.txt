@@ -1,0 +1,63 @@
+import java.util.*;
+public class FIFO {
+ public static void main(String args[]) {
+ int ref[], frame[];
+ int n, m, j = 0, hit = 0, miss = 0;
+ Scanner it = new Scanner(System.in);
+ System.out.println("Enter the string size : ");
+ n = it.nextInt();
+ System.out.println("Enter the frame size : ");
+ m = it.nextInt();
+ ref = new int[n];
+ frame = new int[m];
+ for (int i = 0; i < m; i++) {
+ frame[i] = -1;
+ }
+ System.out.println("Enter the reference string : ");
+ for (int i = 0; i < n; i++) {
+ ref[i] = it.nextInt();
+ }
+ System.out.print("\nReference string : ");
+ for (int i = 0; i < n; i++) {
+ System.out.print(ref[i] + " ");
+ }
+ System.out.println("\n\n---------------------------FIFO-----------------------------\n");
+ int u = n;
+ int flag = 0;
+ int i = 0;
+ while (u != 0) {
+ System.out.print("[" + ref[j] + "] |");
+ for (int b = 0; b < m; b++) {
+ if (j < n && ref[j] == frame[b]) {
+ flag = 1;
+ hit++;
+ }
+ }
+ if (j < n && flag == 0) {
+ frame[i] = ref[j];
+ miss++;
+ j++;
+ i++;
+ for (int k = 0; k < m; k++) {
+ System.out.print(frame[k] + "|");
+ }
+ System.out.print(" <--Miss\n");
+ }
+ if (flag == 1) {
+ flag = 0;
+ for (int k = 0; k < m; k++) {
+ System.out.print(frame[k] + "|");
+ }
+ j++;
+ System.out.print(" <--Hit\n");
+ }
+ if (i == m) {
+ i = 0;
+ }
+ u--;
+ }
+ System.out.println("\nTotal Hits : " + hit);
+ System.out.println("Total Miss : " + miss);
+ System.out.print("\n------------------------------------------------------------");
+ }
+}
