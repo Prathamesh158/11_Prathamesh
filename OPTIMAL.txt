@@ -1,0 +1,107 @@
+import java.util.Scanner;
+public class Optimal {
+ public static void main(String args[]) {
+ int ref[], frame[];
+ int n, m, j = 0, hit = 0, miss = 0, list = 0;
+ Scanner it = new Scanner(System.in);
+ System.out.println("Enter the string size : ");
+ n = it.nextInt();
+ System.out.println("Enter the frame size : ");
+ m = it.nextInt();
+ ref = new int[n];
+ frame = new int[m];
+ for (int i = 0; i < m; i++) {
+ frame[i] = -1;
+ }
+ System.out.println("Enter the reference string : ");
+ for (int i = 0; i < n; i++) {
+ ref[i] = it.nextInt();
+ }
+ System.out.print("\nReference string : ");
+ for (int i = 0; i < n; i++) {
+ System.out.print(ref[i] + " ");
+ }
+ System.out.println("\n\n---------------------------Optimal-----------------------------\n");
+ int u = n;
+ int flag = 0;
+ int i = 0;
+ int d = -1;
+ int max;
+ int set = 0;
+ int f = 0;
+ int common = 0;
+ int rp = 0;
+ while (f < m) {
+ for (int k = 0; k < m; k++) {
+ if (ref[j] == frame[k]) {
+ set = 1;
+ }
+ }
+ if (set != 1) {
+ frame[f] = ref[j];
+ f++;
+ System.out.print("[" + ref[j] + "] ");
+ for (int a = 0; a < m; a++) {
+ System.out.print(frame[a] + " |");
+ }
+ System.out.print(" <---Miss\n");
+ j++;
+ } else {
+ set = 0;
+ hit++;
+ System.out.print("[" + ref[j] + "] ");
+ for (int a = 0; a < m; a++) {
+ System.out.print(frame[a] + " |");
+ }
+ System.out.print(" <---Hit\n");
+ j++;
+ }
+ }
+ while (j < n) {
+ System.out.print("[" + ref[j] + "] ");
+ for (int b = 0; b < m; b++) {
+ if (j < n && ref[j] == frame[b]) {
+ flag = 1;
+ hit++;
+ }
+ }
+ max = Integer.MIN_VALUE;
+ int c;
+ for (int a = 0; a < m; a++) {
+ for (c = j + 1; c < n; c++) {
+ if (frame[a] == ref[c]) {
+ d = c;
+ break;
+ }
+ }
+ if ((max < d && d != -1) && c != n && common != 1) {
+ max = d;
+ rp = a;
+ }
+ if (c == n && common != 1) {
+ rp = a;
+ common = 1;
+ }
+ c = j + 1;
+ }
+ if (flag != 1) {
+ frame[rp] = ref[j];
+ for (int a = 0; a < m; a++) {
+ System.out.print(frame[a] + " |");
+ }
+ System.out.print(" <---Miss\n");
+ } else {
+ flag = 0;
+ for (int a = 0; a < m; a++) {
+ System.out.print(frame[a] + " |");
+ }
+ System.out.print(" <---Hit\n");
+ }
+ j++;
+ common = 0;
+ }
+ System.out.println("\nTotal Hits : " + hit);
+ System.out.println("Total Miss : " + (n - hit));
+ System.out.print("\n------------------------------------------------------------");
+ }
+}
