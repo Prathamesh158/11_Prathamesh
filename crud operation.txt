@@ -1,0 +1,27 @@
+abc acc =new abc();
+acc. CreateAccount ('prathamesh', '8208223158')
+
+select Name,Phone from account
+
+select Name, Phone from account
+
+update_account acc =new update_account(); 
+acc.update_holder_account('danej');
+
+update_account acc =new update_account(); acc.update_holder_account('danej');
+
+public class demo3{
+	public void delerAccount(){
+	List<Account> del = [SELECT name from Account WHERE phone= '12345 '];
+	Delete del;
+	}
+}
+
+
+Demo3 d3 = new Demo3();
+d3.deleteAccount();
+
+
+select name phone from account
+
+
