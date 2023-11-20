@@ -1,44 +1,43 @@
-//N-Queen
-#include <iostream>
-#include <vector>
-using namespace std;
-void printBoard(const vector<vector<int>>& board) {
-    for (const auto& row : board) {
-        for (int col : row) {
-            if (col == 1) {
-                cout << "Q ";
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_SIZE 10
+void printBoard(int board[MAX_SIZE][MAX_SIZE], int n) {
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (board[i][j] == 1) {
+                printf("Q ");
             } else {
-                cout << ". ";
+                printf(". ");
             }
         }
-        cout << endl;
+        printf("\n");
     }
-    cout << endl;
+    printf("\n");
 }
-bool isSafe(const vector<vector<int>>& board, int row, int col, int n) {
+int isSafe(int board[MAX_SIZE][MAX_SIZE], int row, int col, int n) {
     for (int i = 0; i < col; ++i) {
         if (board[row][i] == 1) {
-            return false;
+            return 0;
         }
     }
     for (int i = row, j = col; i >= 0 && j >= 0; --i, --j) {
         if (board[i][j] == 1) {
-            return false;
+            return 0;
         }
     }
     for (int i = row, j = col; i < n && j >= 0; ++i, --j) {
         if (board[i][j] == 1) {
-            return false;
+            return 0;
         }
     }
-    return true;
+    return 1;
 }
-bool solveNQueens(vector<vector<int>>& board, int col, int n) {
+int solveNQueens(int board[MAX_SIZE][MAX_SIZE], int col, int n) {
     if (col == n) {
-        printBoard(board);
-        return true; 
+        printBoard(board, n);
+        return 1;
     }
-    bool res = false;
+    int res = 0;
     for (int i = 0; i < n; ++i) {
         if (isSafe(board, i, col, n)) {
             board[i][col] = 1;
@@ -50,15 +49,15 @@ bool solveNQueens(vector<vector<int>>& board, int col, int n) {
 }
 int main() {
     int n;
-    cout << "Enter the size of the chessboard (N x N): ";
-    cin >> n;
-    vector<vector<int>> board(n, vector<int>(n, 0));
+    printf("Enter the size of the chessboard (N x N): ");
+    scanf("%d", &n);
+    int board[MAX_SIZE][MAX_SIZE] = {0};
     int firstQueenRow;
-    cout << "Enter the row where the first queen is placed (0-indexed): ";
-    cin >> firstQueenRow;
+    printf("Enter the row where the first queen is placed (0-indexed): ");
+    scanf("%d", &firstQueenRow);
     board[firstQueenRow][0] = 1;
     if (!solveNQueens(board, 1, n)) {
-        cout << "Solution does not exist." << endl;
+        printf("Solution does not exist.\n");
     }
     return 0;
 }
